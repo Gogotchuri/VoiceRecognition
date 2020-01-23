@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 currDir=$(cd `dirname $0` && pwd)
-execFile=${currDir}/vendor/extract_loudest_section/bin/extract_loudest_section
+execFile=${currDir}/vendor/extract_loudest_part
 saveDir=${currDir}/data_cut
 
 echo "Cleaning old cuts..."
