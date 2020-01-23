@@ -1,4 +1,4 @@
-### Voice Recognition Software ###
+# Voice Recognition Software #
 
 ## Cloning/Compilation/Usage ##
 - Clone repo with command: *git clone https://github.com/Gogotchuri/VoiceRecognition.git*
