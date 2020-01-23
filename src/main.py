@@ -50,7 +50,7 @@ def train_validation_split(validation_size, name_to_files):
     return X_t, X_v
 
 
-files_dict = read_voice_files("data/")
+files_dict = read_voice_files("data_cut/")
 X_train, X_validation = train_validation_split(VALIDATION_SET_SIZE, files_dict)
 print(X_train)
 print(X_validation)
