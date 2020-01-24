@@ -3,6 +3,7 @@ import numpy as np
 import os
 import random
 import librosa
+from audio_processing import process_data
 
 
 VALIDATION_SET_SIZE = 0.2
@@ -22,7 +23,7 @@ def read_voice_files(dir_path):
     for i in range(len(filenames)):
         filepath = filenames[i]
         person_name = filepath.split("\\")[-1].split(".")[0].split("-")[:2]
-        person_name = person_name[0] + " " + person_name[1]
+        person_name = person_name[0] + "-" + person_name[1]
         if person_name in name_to_files.keys():
             name_to_files[person_name].append(filepath)
         else:
@@ -52,6 +53,7 @@ def train_validation_split(validation_size, name_to_files):
 
 files_dict = read_voice_files("data_cut/")
 X_train, X_validation = train_validation_split(VALIDATION_SET_SIZE, files_dict)
-print(X_train)
-print(X_validation)
+#print(X_train)
+#print(X_validation)
 
+processed_data = process_data(X_train)
