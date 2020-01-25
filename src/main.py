@@ -53,7 +53,7 @@ def train_validation_split(validation_size, name_to_files):
 
 files_dict = read_voice_files("data_cut/")
 X_train, X_validation = train_validation_split(VALIDATION_SET_SIZE, files_dict)
-#print(X_train)
-#print(X_validation)
+print(X_train)
+print(X_validation)
 
 processed_data = process_data(X_train)
