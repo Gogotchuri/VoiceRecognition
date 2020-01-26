@@ -1,59 +1,30 @@
-import glob
-import numpy as np
-import os
-import random
-import librosa
 from audio_processing import process_data
+from get_data import get_data
+import numpy as np
 
+X_train, X_validation = get_data("data_cut/")
 
-VALIDATION_SET_SIZE = 0.2
+X_train = process_data(X_train)
+X_validation = process_data(X_validation)
 
+# Dataset configuration for speech recognition
+y_train = np.expand_dims([e[1] for e in X_train], -1)
+y_validation = np.expand_dims([e[1] for e in X_validation], -1)
 
-def bool_random(prob):
-    r = random.random()
-    if r <= prob:
-        return True
-    else:
-        return False
-
-
-def read_voice_files(dir_path):
-    filenames = glob.glob(dir_path + "*.wav")
-    name_to_files = dict()
-    for i in range(len(filenames)):
-        filepath = filenames[i]
-        person_name = filepath.split("\\")[-1].split(".")[0].split("-")[:2]
-        person_name = person_name[0] + "-" + person_name[1]
-        if person_name in name_to_files.keys():
-            name_to_files[person_name].append(filepath)
+# Extract spectograms from processed data
+def get_pure_spectogram(train_input):
+    pure_spectograms = []
+    # Extracting spectograms for every entry
+    for entity in train_input:
+        # Every spectogram should have third dimension the same
+        if entity[2].shape[1] == 31:
+            pure_spectograms.append(entity[2].copy())
+        # Otherwise fill dimension with 0s
         else:
-            name_to_files[person_name] = [filepath]
-    return name_to_files
+            remaining = 31 - entity[2].shape[1]
+            pure_spectograms.append( np.append( entity[2].copy(), [0 for _ in range(remaining)]))
+    # Create and return numpy 3D matrix
+    return np.array(pure_spectograms, copy=True)
 
-
-def train_validation_split(validation_size, name_to_files):
-    X_t = dict()
-    X_v = dict()
-    for k, v in name_to_files.items():
-        for f in v:
-            belongs_to_validation = bool_random(validation_size)
-            if belongs_to_validation:
-                if k in X_v:
-                    X_v[k].append(f)
-                else:
-                    X_v[k] = [f]
-            else:
-                if k in X_t:
-                    X_t[k].append(f)
-                else:
-                    X_t[k] = [f]
-
-    return X_t, X_v
-
-
-files_dict = read_voice_files("data_cut/")
-X_train, X_validation = train_validation_split(VALIDATION_SET_SIZE, files_dict)
-print(X_train)
-print(X_validation)
-
-processed_data = process_data(X_train)
+X_train_pure = get_pure_spectogram(X_train)
+X_validation_pure = get_pure_spectogram(X_validation)
