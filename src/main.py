@@ -20,11 +20,15 @@ def get_pure_spectogram(train_input):
         if entity[2].shape[1] == 31:
             pure_spectograms.append(entity[2].copy())
         # Otherwise fill dimension with 0s
-        else:
-            remaining = 31 - entity[2].shape[1]
-            pure_spectograms.append( np.append( entity[2].copy(), [0 for _ in range(remaining)]))
+        # else:
+        #     remaining = 31 - entity[2].shape[1]
+        #     arr = np.append( entity[2].copy(), [0 for _ in range(remaining)])
+        #     print(arr.shape)
+        #     pure_spectograms.append( np.append( entity[2].copy(), [0 for _ in range(remaining)]))
     # Create and return numpy 3D matrix
     return np.array(pure_spectograms, copy=True)
 
 X_train_pure = get_pure_spectogram(X_train)
 X_validation_pure = get_pure_spectogram(X_validation)
+print(X_validation_pure.shape)
+print(X_train_pure.shape)
