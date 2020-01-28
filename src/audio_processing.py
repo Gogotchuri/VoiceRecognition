@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import librosa
 import librosa.display
 import numpy as np
-import matplotlib.pyplot as plt
-from python_speech_features import mfcc
+import scipy
+# from python_speech_features import mfcc
 
 
 # Returns list of lists: [correct number, student's name, matrix of a spectogram]
@@ -38,3 +38,23 @@ def parse_features(X_train) :
             ls.append([name, number, audio_file])
     
     return ls
+
+
+
+def shift_audio(samples):
+    sampling=samples[(samples > 200) | (samples < -200)]
+    shifted_silent =sampling.tolist()+np.zeros((samples.shape[0]-sampling.shape[0])).tolist()
+    return shifted_silent
+
+# Adds random noise to audio
+def add_noise(samples):
+    y_noise = samples.copy()
+    noise_amp = 0.005*np.random.uniform()*np.amax(y_noise)
+    y_noise = y_noise.astype('float64') + noise_amp * np.random.normal(size=y_noise.shape[0])
+    return y_noise
+
+# Display audio  as image
+def display_audio_diagram(samples, sample_rate):
+    plt.figure(figsize=(12, 4))
+    librosa.display.waveplot(samples.astype('float'), sr=sample_rate)
+    plt.show()

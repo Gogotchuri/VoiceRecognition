@@ -1,11 +1,19 @@
-from audio_processing import process_data
+import audio_processing
 from get_data import get_data
 import numpy as np
+import random
+import scipy
 
 X_train, X_validation = get_data("data_cut/")
 
-X_train = process_data(X_train)
-X_validation = process_data(X_validation)
+random_wav = random.choice(X_train[random.choice(list(X_train.keys()))])
+sample_rate, samples = scipy.io.wavfile.read(random_wav)
+# audio_processing.display_audio_diagram(samples, sample_rate)
+audio_processing.display_audio_diagram(audio_processing.add_noise(samples), sample_rate)
+
+
+X_train = audio_processing.process_data(X_train)
+X_validation = audio_processing.process_data(X_validation)
 
 # Dataset configuration for speech recognition
 y_train = np.expand_dims([e[1] for e in X_train], -1)
