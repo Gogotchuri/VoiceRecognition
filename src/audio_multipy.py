@@ -27,6 +27,6 @@ for i in range(len(filenames)):
     #Play pitch changed sound
 
     #export / save pitch changed sound
-    new_name = '1/'+filenames[i].split('data_cut/')[1].split('.wav')[0] + '1' + '.wav'
+    new_name = '1/'+filenames[i].split('data_cut/')[1].split('.wav')[0] + 'high' + '.wav'
     print(new_name)
     hipitch_sound.export(new_name, format="wav")
