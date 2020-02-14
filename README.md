@@ -30,7 +30,7 @@
  - **Speech Recognition With Library.ipynb** - contains code, to import already  trained keras model and make a prediction on a preprocessed test data.
  - **Train.ipynb** - Creates custom and keras models, trains them and exports trained models as separate files.
  ### Notes ###
- - For now there is some redundant code that needs to be removed from repository
- - Also code dumplication is a problem, which should be handled
- - Average accuracy on train test split for custom CNN model is: 72% +-4% and for Keras model is: 93% +-4%
+ - For now there is some redundant code that needs to be removed from repository.
+ - Also code duplication is a problem, which should be handled.
+ - Average accuracy on train-test split for custom CNN model is: 72% +-4% and for Keras model is: 93% +-4%
  
