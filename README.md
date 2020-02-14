@@ -17,7 +17,7 @@
         - *sudo chmod +x cut_voices.sh && sudo chmod 777 cut_voices.sh*
  ## Preprocessing Test data ##
  - *Preprocessing script is compiled for linux and only works there. Also script Requires software **[ffmpeg](https://www.ffmpeg.org/)** *
- - *Test data should be placed in a single folder (flattended) and should have extension .wav*
+ - *Test data should be placed in a single folder (flattened) and should have extension .wav*
  - If you want to test given models, you should first preprocess test data:
     + Preprocessing script takes one argument from terminal, absolute path to test folder.
     + Executing script (path_to_test - is absolute path to test directory):
